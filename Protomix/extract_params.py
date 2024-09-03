@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-from protomix.utils import get_paths
+from Protomix.utils import get_paths
 
 def extract_params(root_directory: str) -> pd.DataFrame:
     """

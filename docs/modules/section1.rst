@@ -1,8 +1,7 @@
-protomix.extract\_fids
+Protomix.extract\_fids
 -----------------------------
 
-.. automodule:: protomix.extract_fids
+.. automodule:: Protomix.extract_fids
    :members:
    :undoc-members:
    :show-inheritance:
-   :no-index:

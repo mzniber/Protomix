@@ -1,7 +1,7 @@
-protomix.phase\_correction
+Protomix.phase\_correction
 ---------------------------------
 
-.. automodule:: protomix.phase_correction
+.. automodule:: Protomix.phase_correction
    :members:
    :undoc-members:
    :show-inheritance:

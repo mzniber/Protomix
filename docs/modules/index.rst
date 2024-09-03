@@ -21,130 +21,130 @@ Module Documentation
    section15
    section16
 
-protomix.extract\_fids
+Protomix.extract\_fids
 -----------------------------
 
-.. automodule:: protomix.extract_fids
+.. automodule:: Protomix.extract_fids
    :members:
    :undoc-members:
    :show-inheritance:
 
-protomix.extract\_params
+Protomix.extract\_params
 -------------------------------
 
-.. automodule:: protomix.extract_params
+.. automodule:: Protomix.extract_params
    :members:
    :undoc-members:
    :show-inheritance:
 
-protomix.group\_delay\_removal
+Protomix.group\_delay\_removal
 -------------------------------------
 
-.. automodule:: protomix.group_delay_removal
+.. automodule:: Protomix.group_delay_removal
    :members:
    :undoc-members:
    :show-inheritance:
 
-protomix.solvent\_residuals\_removal
+Protomix.solvent\_residuals\_removal
 -------------------------------------------
 
-.. automodule:: protomix.solvent_residuals_removal
+.. automodule:: Protomix.solvent_residuals_removal
    :members:
    :undoc-members:
    :show-inheritance:
 
-protomix.apodization
+Protomix.apodization
 ---------------------------
 
-.. automodule:: protomix.apodization
+.. automodule:: Protomix.apodization
    :members:
    :undoc-members:
    :show-inheritance:
 
-protomix.zero\_filling
+Protomix.zero\_filling
 -----------------------------
 
-.. automodule:: protomix.zero_filling
+.. automodule:: Protomix.zero_filling
    :members:
    :undoc-members:
    :show-inheritance:
 
-protomix.fourier\_transform
+Protomix.fourier\_transform
 ----------------------------------
 
-.. automodule:: protomix.fourier_transform
+.. automodule:: Protomix.fourier_transform
    :members:
    :undoc-members:
    :show-inheritance:
 
-protomix.internal\_referencing
+Protomix.internal\_referencing
 -------------------------------------
 
-.. automodule:: protomix.internal_referencing
+.. automodule:: Protomix.internal_referencing
    :members:
    :undoc-members:
    :show-inheritance:
 
-protomix.phase\_correction
+Protomix.phase\_correction
 ---------------------------------
 
-.. automodule:: protomix.phase_correction
+.. automodule:: Protomix.phase_correction
    :members:
    :undoc-members:
    :show-inheritance:
 
-protomix.baseline\_correction
+Protomix.baseline\_correction
 ------------------------------------
 
-.. automodule:: protomix.baseline_correction
+.. automodule:: Protomix.baseline_correction
    :members: baseline_correction
    :undoc-members:
    :show-inheritance:
 
-protomix.Icoshift class
+Protomix.Icoshift class
 ------------------------
 
-.. autoclass:: protomix.Icoshift.Icoshift
+.. autoclass:: Protomix.Icoshift.Icoshift
    :members: run
    :undoc-members:
    :show-inheritance:
 
-protomix.negative\_values\_zeroing
+Protomix.negative\_values\_zeroing
 -----------------------------------------
 
-.. automodule:: protomix.negative_values_zeroing
+.. automodule:: Protomix.negative_values_zeroing
    :members:
    :undoc-members:
    :show-inheritance:
 
-protomix.window\_selection
+Protomix.window\_selection
 ---------------------------------
 
-.. automodule:: protomix.window_selection
+.. automodule:: Protomix.window_selection
    :members:
    :undoc-members:
    :show-inheritance:
 
-protomix.region\_removal
+Protomix.region\_removal
 -------------------------------
 
-.. automodule:: protomix.region_removal
+.. automodule:: Protomix.region_removal
    :members:
    :undoc-members:
    :show-inheritance:
 
-protomix.binning
+Protomix.binning
 -----------------------
 
-.. automodule:: protomix.binning
+.. automodule:: Protomix.binning
    :members:
    :undoc-members:
    :show-inheritance:
 
-protomix.normalize
+Protomix.normalize
 -------------------------
 
-.. automodule:: protomix.normalize
+.. automodule:: Protomix.normalize
    :members:
    :undoc-members:
    :show-inheritance:

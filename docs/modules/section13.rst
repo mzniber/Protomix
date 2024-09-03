@@ -1,7 +1,7 @@
-protomix.window\_selection
+Protomix.window\_selection
 ---------------------------------
 
-.. automodule:: protomix.window_selection
+.. automodule:: Protomix.window_selection
    :members:
    :undoc-members:
    :show-inheritance:

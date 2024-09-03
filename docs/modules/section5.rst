@@ -1,7 +1,7 @@
-protomix.apodization
+Protomix.apodization
 ---------------------------
 
-.. automodule:: protomix.apodization
+.. automodule:: Protomix.apodization
    :members:
    :undoc-members:
    :show-inheritance:

@@ -1,7 +1,7 @@
-protomix.baseline\_correction
+Protomix.baseline\_correction
 ------------------------------------
 
-.. automodule:: protomix.baseline_correction
+.. automodule:: Protomix.baseline_correction
    :members: baseline_correction
    :undoc-members:
    :show-inheritance:

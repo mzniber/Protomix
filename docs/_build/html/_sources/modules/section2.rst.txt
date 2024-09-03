@@ -1,7 +1,7 @@
 protomix.extract\_params
 -------------------------------
 
-.. automodule:: protomix.extract_params
+.. automodule:: Protomix.extract_params
    :members:
    :undoc-members:
    :show-inheritance:

@@ -1,7 +1,7 @@
-protomix.normalize
+Protomix.normalize
 -------------------------
 
-.. automodule:: protomix.normalize
+.. automodule:: Protomix.normalize
    :members:
    :undoc-members:
    :show-inheritance:

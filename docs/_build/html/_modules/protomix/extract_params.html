@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>protomix.extract_params - Protomix 1.0.0 documentation</title>
+        <title>Protomix.extract_params - Protomix 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -290,14 +290,14 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <h1>Source code for protomix.extract_params</h1><div class="highlight"><pre>
+          <h1>Source code for Protomix.extract_params</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">protomix.utils</span> <span class="kn">import</span> <span class="n">get_paths</span>
+<span class="kn">from</span> <span class="nn">Protomix.utils</span> <span class="kn">import</span> <span class="n">get_paths</span>
 
 <div class="viewcode-block" id="extract_params">
-<a class="viewcode-back" href="../../modules/section2.html#protomix.extract_params.extract_params">[docs]</a>
+<a class="viewcode-back" href="../../modules/section2.html#Protomix.extract_params.extract_params">[docs]</a>
 <span class="k">def</span> <span class="nf">extract_params</span><span class="p">(</span><span class="n">root_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extract parameters from &#39;acqus&#39; files located within a directory hierarchy.</span>

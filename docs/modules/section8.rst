@@ -1,7 +1,7 @@
-protomix.internal\_referencing
+Protomix.internal\_referencing
 -------------------------------------
 
-.. automodule:: protomix.internal_referencing
+.. automodule:: Protomix.internal_referencing
    :members:
    :undoc-members:
    :show-inheritance:

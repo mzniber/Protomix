@@ -1,7 +1,7 @@
 protomix.Icoshift class
 ------------------------
 
-.. autoclass:: protomix.Icoshift.Icoshift
+.. autoclass:: Protomix.Icoshift.Icoshift
    :members: run
    :undoc-members:
    :show-inheritance:

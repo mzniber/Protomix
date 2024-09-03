@@ -5,7 +5,7 @@ import concurrent.futures
 import numpy as np
 import logging
 
-from protomix.utils import get_index_signal_with_highest_correlation, get_avg2_target, get_max_signal_idx, \
+from Protomix.utils import get_index_signal_with_highest_correlation, get_avg2_target, get_max_signal_idx, \
 get_fill_matrix, shift_signals, ccfftshift
 
 
