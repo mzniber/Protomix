@@ -10,6 +10,22 @@ body > div > div > div.content {
     display: none;
 }
 
+#authors .toctree-wrapper.compound {
+    display: none;
+}
+
+#installation .toctree-wrapper.compound {
+    display: none;
+}
+
+#tutorial .toctree-wrapper.compound {
+    display: none;
+}
+
+#module-documentation .toctree-wrapper.compound {
+    display: none;
+}
+
 #tutorial > div.admonition.caution {
     text-align: left;
 }

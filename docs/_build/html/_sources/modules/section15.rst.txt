@@ -1,7 +1,7 @@
-protomix.binning
+Protomix.binning
 -----------------------
 
-.. automodule:: protomix.binning
+.. automodule:: Protomix.binning
    :members:
    :undoc-members:
    :show-inheritance:

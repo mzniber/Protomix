@@ -1,7 +1,7 @@
-protomix.zero\_filling
+Protomix.zero\_filling
 -----------------------------
 
-.. automodule:: protomix.zero_filling
+.. automodule:: Protomix.zero_filling
    :members:
    :undoc-members:
    :show-inheritance:

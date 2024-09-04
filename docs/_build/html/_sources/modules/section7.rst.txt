@@ -1,7 +1,7 @@
-protomix.fourier\_transform
+Protomix.fourier\_transform
 ----------------------------------
 
-.. automodule:: protomix.fourier_transform
+.. automodule:: Protomix.fourier_transform
    :members:
    :undoc-members:
    :show-inheritance:

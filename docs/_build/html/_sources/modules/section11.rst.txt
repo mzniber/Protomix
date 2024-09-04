@@ -1,4 +1,4 @@
-protomix.Icoshift class
+Protomix.Icoshift class
 ------------------------
 
 .. autoclass:: Protomix.Icoshift.Icoshift

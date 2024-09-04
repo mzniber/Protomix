@@ -1,7 +1,7 @@
-protomix.negative\_values\_zeroing
+Protomix.negative\_values\_zeroing
 -----------------------------------------
 
-.. automodule:: protomix.negative_values_zeroing
+.. automodule:: Protomix.negative_values_zeroing
    :members:
    :undoc-members:
    :show-inheritance:

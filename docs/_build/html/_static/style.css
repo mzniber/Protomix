@@ -6,7 +6,23 @@ body > div > div > div.content {
     text-align: justify !important;
 }
 
-.toctree-wrapper.compound {
+#overview .toctree-wrapper.compound {
+    display: none;
+}
+
+#authors .toctree-wrapper.compound {
+    display: none;
+}
+
+#installation .toctree-wrapper.compound {
+    display: none;
+}
+
+#tutorial .toctree-wrapper.compound {
+    display: none;
+}
+
+#module-documentation .toctree-wrapper.compound {
     display: none;
 }
 

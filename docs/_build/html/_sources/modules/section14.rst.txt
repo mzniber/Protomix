@@ -1,7 +1,7 @@
-protomix.region\_removal
+Protomix.region\_removal
 -------------------------------
 
-.. automodule:: protomix.region_removal
+.. automodule:: Protomix.region_removal
    :members:
    :undoc-members:
    :show-inheritance:

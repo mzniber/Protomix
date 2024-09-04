@@ -1,4 +1,4 @@
-protomix.extract\_params
+Protomix.extract\_params
 -------------------------------
 
 .. automodule:: Protomix.extract_params
