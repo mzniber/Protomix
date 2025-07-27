@@ -1,110 +1,163 @@
 import numpy as np
 import pandas as pd
-
 from scipy import sparse
-from scipy.sparse.linalg import spsolve
+from scipy.sparse.linalg import factorized, spsolve
 
-def baseline_correction(spectra_df: pd.DataFrame, method="als", lambda_=100, porder=1, maxIter=100, lam=1e4, ratio=0.05):
+
+def als(y, smoothness=10e4, asymmetry=10e-6, max_iter=100):
     """
-    Apply different baseline correction algorithms to each row of a DataFrame.
+    Asymmetric Least Squares (ALS) baseline correction.
 
-    :param spectra_df: DataFrame where each row is a spectrum to be baseline corrected.
-    :type spectra_df: pd.DataFrame
-    :param method: Method for baseline correction. Options are "als", "arpls", "airpls".
-    :type method: str
-    :param lambda_: Regularization parameter for ALS and AIRPLS.
-    :type lambda_: float
-    :param porder: Asymmetry parameter for ALS.
-    :type porder: float
-    :param maxIter: Maximum number of iterations for ALS and AIRPLS.
-    :type maxIter: int
-    :param lam: Lambda parameter for ARPLS.
-    :type lam: float
-    :param ratio: Ratio parameter for ARPLS.
-    :type ratio: float
-    
-    :return: DataFrame with baseline corrected spectra.
-    :rtype: pd.DataFrame
+    Parameters:
+        y (array-like): Input spectrum (1D).
+        smoothness (float): Smoothing strength (λ).
+        asymmetry (float): Asymmetry parameter (p).
+        max_iter (int): Maximum number of iterations.
+
+    Returns:
+        ndarray: Baseline-corrected signal.
     """
-
-    if method == "als":
-        corrected_spectra_df = spectra_df.apply(lambda row: als(row, lambda_, porder, maxIter), axis=1)
-    elif method == "arpls":
-        corrected_spectra_df = spectra_df.apply(lambda row: arpls(row, lam, ratio), axis=1)
-    elif method == "airpls":
-        corrected_spectra_df = spectra_df.apply(lambda row: airpls(row, lambda_, porder, maxIter), axis=1)
-    else:
-        raise ValueError("Invalid method. Supported methods: 'als', 'arpls', 'airpls'")
-    
-    return pd.DataFrame(corrected_spectra_df)
-
-
-def als(y, lambda_, p, maxIter):
+    y = np.asarray(y)
     m = len(y)
     D = sparse.eye(m, format='csc')
-    D = D[1:] - D[:-1]  # numpy.diff( ,2) does not work with sparse matrix. This is a workaround.
+    D = D[1:] - D[:-1]
     D = D[1:] - D[:-1]
     D = D.T
     w = np.ones(m)
-    for i in range(maxIter):
+
+    for _ in range(max_iter):
         W = sparse.diags(w, 0, shape=(m, m))
-        Z = W + lambda_ * D.dot(D.T)
+        Z = W + smoothness * D @ D.T
         z = spsolve(Z, w * y)
-        w = p * (y > z) + (1 - p) * (y < z)
+        w = asymmetry * (y > z) + (1 - asymmetry) * (y < z)
+
     return y - z
 
-def arpls(y, lam=1e4, ratio=0.05, itermax=100):
-    N = len(y)
-    # D = sparse.csc_matrix(np.diff(np.eye(N), 2))
-    D = sparse.eye(N, format='csc')
-    D = D[1:] - D[:-1]  # numpy.diff( ,2) does not work with sparse matrix. This is a workaround.
-    D = D[1:] - D[:-1]
+def arpls(y, smoothness=10e2, tolerance=0.05, max_iter=100):
+    """
+    Adaptive Reweighted Penalized Least Squares (arPLS) baseline correction.
 
-    H = lam * D.T * D
+    Parameters:
+        y (array-like): Input spectrum (1D).
+        smoothness (float): Smoothing strength (λ).
+        tolerance (float): Convergence threshold.
+        max_iter (int): Maximum number of iterations.
+
+    Returns:
+        ndarray: Baseline-corrected signal.
+    """
+    y = np.asarray(y)
+    N = len(y)
+
+    D = sparse.eye(N, format='csc')
+    D = D[1:] - D[:-1]
+    D = D[1:] - D[:-1]  # Second-order difference matrix
+    H = smoothness * (D.T @ D)
+
     w = np.ones(N)
-    for i in range(itermax):
+
+    for _ in range(max_iter):
         W = sparse.diags(w, 0, shape=(N, N))
-        WH = sparse.csc_matrix(W + H)
-        C = sparse.csc_matrix(cholesky(WH.todense()))
-        z = spsolve(C, spsolve(C.T, w * y))
+        WH = W + H
+        solver = factorized(WH)
+        z = solver(w * y)
+
         d = y - z
         dn = d[d < 0]
         m = np.mean(dn)
         s = np.std(dn)
-        wt = 1. / (1 + np.exp(2 * (d - (2 * s - m)) / s))
-        if np.linalg.norm(w - wt) / np.linalg.norm(w) < ratio:
+
+        if s == 0 or np.isnan(s):
+            break
+
+        wt = 1.0 / (1 + np.exp(2 * (d - (2 * s - m)) / s))
+        if np.linalg.norm(w - wt) / np.linalg.norm(w) < tolerance:
             break
         w = wt
+
     return y - z
 
+def WhittakerSmooth(x, w, smoothness, diff_order=1):
+    """
+    Whittaker smoother using sparse linear system.
 
-def WhittakerSmooth(x, w, lam, differences=1):
-    X = np.matrix(x)
-    m = X.size
-    # D = csc_matrix(np.diff(np.eye(m), differences))
+    Parameters:
+        x (array-like): Input signal.
+        w (array-like): Weight vector.
+        smoothness (float): Smoothing parameter λ.
+        diff_order (int): Order of finite differences.
+
+    Returns:
+        ndarray: Smoothed signal.
+    """
+    x = np.asarray(x)
+    m = len(x)
     D = sparse.eye(m, format='csc')
-    for i in range(differences):
-        D = D[1:] - D[:-1]  # numpy.diff() does not work with sparse matrix. This is a workaround.
+    for _ in range(diff_order):
+        D = D[1:] - D[:-1]
     W = sparse.diags(w, 0, shape=(m, m))
-    A = sparse.csc_matrix(W + (lam * D.T * D))
-    B = sparse.csc_matrix(W * X.T)
+    A = W + smoothness * D.T @ D
+    B = W @ x
     background = spsolve(A, B)
-    return np.array(background)
+    return background
 
-def airpls(x, lambda_=100, porder=1, maxIter=100):
+def airpls(x, smoothness=10e4, diff_order=1, max_iter=100):
+    """
+    Adaptive Iteratively Reweighted Penalized Least Squares (airPLS) baseline correction.
+
+    Parameters:
+        x (array-like): Input spectrum (1D).
+        smoothness (float): Smoothing strength (λ).
+        diff_order (int): Order of difference matrix.
+        max_iter (int): Maximum number of iterations.
+
+    Returns:
+        ndarray: Baseline-corrected signal.
+    """
+    x = np.asarray(x)
     m = x.shape[0]
     w = np.ones(m)
-    for i in range(1, maxIter + 1):
-        z = WhittakerSmooth(x, w, lambda_, porder)
+
+    for i in range(1, max_iter + 1):
+        z = WhittakerSmooth(x, w, smoothness, diff_order)
         d = x - z
         dssn = np.abs(d[d < 0].sum())
-        if(dssn < 0.001 * (abs(x)).sum() or i == maxIter):
-            if(i == maxIter):
-                print('airpls: max iteration reached!')
+        if dssn < 0.001 * np.abs(x).sum() or i == max_iter:
+            if i == max_iter:
+                print("airPLS: max iteration reached.")
             break
-        w[d >= 0] = 0  # d>0 means that this point is part of a peak,
-        # so its weight is set to 0 in order to ignore it
+        w[d >= 0] = 0
         w[d < 0] = np.exp(i * np.abs(d[d < 0]) / dssn)
-        w[0] = np.exp(i * (d[d < 0]).max() / dssn)
-        w[-1] = w[0]
+        w[0] = w[-1] = np.exp(i * np.max(d[d < 0]) / dssn)
     return x - z
+
+def baseline_correction(
+    spectra_df: pd.DataFrame,
+    method="arpls",
+) -> pd.DataFrame:
+    """
+    Apply baseline correction to a DataFrame of spectra using selected method.
+
+    Parameters:
+        spectra (pd.DataFrame): Rows = spectra, columns = x-axis (e.g., chemical shift).
+        method (str): 'arpls', 'als', or 'airpls'.
+        smoothness (float): Smoothing parameter (λ).
+        tolerance (float): Convergence threshold (used for arPLS).
+        max_iter (int): Maximum iterations.
+        asymmetry (float): Asymmetry parameter for ALS.
+        diff_order (int): Difference order (for airPLS and Whittaker).
+
+    Returns:
+        pd.DataFrame: Baseline-corrected spectra.
+    """
+    if method == "arpls":
+        corrected = spectra_df.apply(lambda row: arpls(row, smoothness=10e2, tolerance=0.05, max_iter=100), axis=1)
+    elif method == "airpls":
+        corrected = spectra_df.apply(lambda row: airpls(row, smoothness=10e4, diff_order=1, max_iter=100), axis=1)
+    elif method == "als":
+        corrected = spectra_df.apply(lambda row: als(row, smoothness=10e4, asymmetry=10e-6, max_iter=100), axis=1)
+    else:
+        raise ValueError("Method must be one of: 'arpls', 'als', 'airpls'.")
+
+    corrected_array = np.vstack(corrected.values)
+    return pd.DataFrame(corrected_array, index=spectra_df.index, columns=spectra_df.columns)
